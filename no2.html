@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Wishes</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    overflow: hidden;
+}
+
+/* Background */
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url('file_00000000bbe871fa990101aee1724e56.png') no-repeat center center/cover;
+    filter: blur(6px) brightness(0.5);
+    z-index: -2;
+}
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: -1;
+}
+
+/* Pages */
+.page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#page2 {
+    display: none;
+}
+
+/* Content Box (Reel Style) */
+.box {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Heading Glow */
+.name {
+    font-size: 28px;
+    font-weight: bold;
+    background: linear-gradient(90deg, #fff, #ff6f91, #fff);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+    0% {background-position: -200%;}
+    100% {background-position: 200%;}
+}
+
+p {
+    font-size: 16px;
+    margin-top: 15px;
+    line-height: 1.5;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background: white;
+    color: #ff6f91;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Hearts */
+.heart {
+    position: absolute;
+    bottom: -50px;
+    color: red;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    0% {transform: translateY(0);}
+    100% {transform: translateY(-100vh);}
+}
+
+/* Fireworks */
+.firework {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    to {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body onload="playMusic()">
+
+<div class="bg"></div>
+<div class="overlay"></div>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page">
+    <div class="box">
+        <div class="name">💖 Congratulations Pyari Bhen 💖</div>
+
+        <p>
+            Dear <b>[Friend Name]</b>,<br><br>
+            Abb Tumhari Life Ke Sabse Beautiful Din Aane Wale Hai 💕  <br>
+            Dua Hai Ki Tumhari Life Hamesha Love Aur Happiness Se Bhari Rahe ❤️<br>
+             <button onclick="playMusic()">Play Music 🎵</button><br>
+
+        </p>
+
+        <button onclick="showPage2()">💌 Thank You</button>
+    </div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page">
+    <div class="box">
+        <div class="name">💌 Thank You 💌</div>
+        <p id="message"></p>
+
+        <button onclick="showPage1()">⬅ Back</button>
+    </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop autoplay>
+    <source src="Aaj Sajeya2.mp3" type="audio/mp3">
+</audio>
+
+<script>
+// Music
+function playMusic() {
+    document.getElementById("music").play();
+}
+
+// Page Switch
+function showPage2() {
+    document.getElementById("page1").style.display = "none";
+    document.getElementById("page2").style.display = "flex";
+    startTyping();
+    fireworks();
+}
+
+function showPage1() {
+    document.getElementById("page2").style.display = "none";
+    document.getElementById("page1").style.display = "flex";
+}
+
+// Typing
+const text = "tenu sadhi ki lakh lakh badhiya! rab kare tu hamesha khush rahe, tere nava safar pyar, respect te khushiyan naal bharya hove ❤️";
+
+let i = 0;
+function startTyping() {
+    document.getElementById("message").innerHTML = "";
+    i = 0;
+    typeWriter();
+}
+
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("message").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 35);
+    }
+}
+
+// Hearts
+setInterval(() => {
+    let heart = document.createElement("div");
+    heart.innerHTML = "❤️";
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 15 + 10) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+}, 300);
+
+// Fireworks
+function fireworks() {
+    for (let i = 0; i < 20; i++) {
+        let fw = document.createElement("div");
+        fw.classList.add("firework");
+
+        let x = (Math.random() - 0.5) * 150 + "px";
+        let y = (Math.random() - 0.5) * 150 + "px";
+
+        fw.style.left = "50%";
+        fw.style.top = "50%";
+        fw.style.setProperty('--x', x);
+        fw.style.setProperty('--y', y);
+
+        document.body.appendChild(fw);
+
+        setTimeout(() => fw.remove(), 1000);
+    }
+}
+</script>
+<!-- FOOTER -->
+<footer class="footer">
+    Made with ❤️ by Ashish_Lakhan_Wala
+</footer>
+
+
+</body>
+</html>
